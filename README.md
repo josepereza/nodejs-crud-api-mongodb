@@ -1,4 +1,4 @@
 Node JS CRUD API
 ===
 
-An node js crud api based one mongoDB.
+An node js crud api based on mongoDB.
