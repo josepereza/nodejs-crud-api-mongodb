@@ -11,8 +11,10 @@ exports.create = (req, res) => {
 
     // Create a Note
     const note = new Note({
+        fieldID: req.body.fieldID || "Unknown field",
         title: req.body.title || "Untitled Note", 
-        content: req.body.content
+        content: req.body.content,
+        nitrogen: req.body.nitrogen
     });
 
     // Save Note in the database
@@ -24,7 +26,7 @@ exports.create = (req, res) => {
             message: err.message || "Some error occurred while creating the Note."
         });
     });
-};
+}
 
 // Retrieve and return all notes from the database
 exports.findAll = (req, res) => {
@@ -33,6 +35,22 @@ exports.findAll = (req, res) => {
     }).catch(err => {
         res.status(500).send({
             message: err.message || "Unknown error occurred while retrieving notes."
+        })
+    })
+}
+
+// Retrieve and return all notes of that field
+exports.findFields = (req, res) => {
+    Note.find({"fieldID": req.params.fieldID}).then(notes => {
+        if (!notes) {
+            return res.status(404).send({
+                message: "Note not found with fieldID " + req.params.fieldID
+            })
+        }
+        res.send(notes)
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Unknown error occurred finding with fieldID:" + req.params.fieldID
         })
     })
 }
@@ -69,8 +87,10 @@ exports.update = (req, res) => {
 
     // Find note and update it with the request body
     Note.findByIdAndUpdate(req.params.noteId, {
+        fieldID: req.body.fieldID || "Unknown field",
         title: req.body.title || "Untitled Note",
-        content: req.body.content
+        content: req.body.content,
+        nitrogen: req.body.nitrogen
     }, {new: true})
     .then(note => {
         if(!note) {

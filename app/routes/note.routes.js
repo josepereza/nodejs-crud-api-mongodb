@@ -15,4 +15,7 @@ module.exports = (app) => {
 
     // Delete a Note with noteId
     app.delete('/notes/:noteId', notes.delete);
+
+    // Retrieve documents with fieldID
+    app.get('/fields/:fieldID', notes.findFields);
 }
