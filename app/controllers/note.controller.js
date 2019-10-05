@@ -42,7 +42,7 @@ exports.findAll = (req, res) => {
 // Retrieve and return all notes of that field
 exports.findFields = (req, res) => {
     Note.find({"fieldID": req.params.fieldID}).then(notes => {
-        if (!notes) {
+        if (notes.length === 0) {
             return res.status(404).send({
                 message: "Note not found with fieldID " + req.params.fieldID
             })
