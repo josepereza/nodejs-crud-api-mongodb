@@ -35,10 +35,10 @@ $ ps -ef | grep mongo
 
 $ kill -2 18288 # Kill mongo process
 ```
-## Current Data Model
-| title |  content |
-| --- | --- |
-| string | string |
+## Current Document Model
+| fieldID | title |  content | nitrogen |
+| --- | --- | --- | --- |
+| Number | String | String | Number |
 
 ## How to test it
 ``` shell
